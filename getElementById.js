@@ -5,24 +5,22 @@ const str=`<div>
          </div>`;
 const dom=new DOMParser().parseFromString(str,'text/html');
 console.log(dom.body);
-function dfs(element,className,result){
-    if(element==null) return;
-    for(const list of element.classlist){
-        if(list ==className) {
+function dfs(element,id,result){
+    if(element==null || result.length==1) return;
+        if(element.id==id) {
             result.push(element);
             return;
         }
-    }
     for(const child of element.children){
-        dfs(child,className,result);
+        dfs(child,id,result);
     }
 }
 
-function getElementByClassName(body,className){
+function getElementById(body,id){
     const result=[];
     for(const bodyChild of body.children){
-        dfs(bodyChild,className,result);
+        dfs(bodyChild,id,result);
     }
 }
 
-getElementByClassName(dom.body,"a");
+getElementById(dom.body,"a");
